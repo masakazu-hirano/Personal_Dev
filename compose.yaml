@@ -1,0 +1,18 @@
+services:
+  backend:
+    platform: linux/amd64
+    container_name: 'Docker コンテナ名'
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./Backend:/usr/local/src:delegated
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2gb
+        reservations:
+          cpus: '0.5'
+          memory: 1gb
+    tty: true
