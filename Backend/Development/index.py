@@ -1,8 +1,6 @@
 import logging
 import os
 
-from Modules.SET_Environment import Read_Environment_File
-
 if __name__ == '__main__':
 	logging.basicConfig(
 		level = logging.INFO,
@@ -10,7 +8,9 @@ if __name__ == '__main__':
 		style = '{'
 	)
 
-	if Read_Environment_File():
-		logging.info(msg = '処理が正常に終了しました。')
-	else:
-		logging.error(msg = '環境変数（.env）の読み込みに失敗しました。')
+	directory_name: str = './Development/Before_Edit_Picture'
+	for image_file in os.listdir(path = directory_name):
+		if os.path.isfile(path = f"{directory_name}/{image_file}"):
+			logging.info(msg = image_file)
+
+	logging.info(msg = '処理が正常に終了しました。')
