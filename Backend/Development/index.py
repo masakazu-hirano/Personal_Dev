@@ -1,5 +1,6 @@
 import logging
 import os
+import shortuuid
 
 from datetime import datetime
 from PIL import Image
@@ -23,7 +24,11 @@ if __name__ == '__main__':
 				maker: str = image_file.getexif().get(key = 271)
 				model_name: str = image_file.getexif().get(key = 272)
 
-				logging.info(msg = f"{datetime.strftime(photography_datetime, '%Y-%m-%d %H:%M:%S')}_{maker}_{model_name}")
+				image_file.save(
+					fp = f"./Development/After_Edit_Picture/{datetime.strftime(photography_datetime, '%Y-%m-%d %H:%M:%S')}_{maker}_{model_name}_{shortuuid.uuid()}.png",
+					format = 'PNG',
+					compress_level = 0
+				)
 
 		break
 	logging.info(msg = '処理が正常に終了しました。')
