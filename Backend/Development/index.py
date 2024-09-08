@@ -24,7 +24,24 @@ if __name__ == '__main__':
 				maker: str = image_file.getexif().get(key = 271)
 				model_name: str = image_file.getexif().get(key = 272)
 
-				image_file.save(
+				width, height = image_file.size
+				aspect_ratio: float = height / width
+
+				if width < 1920:
+					new_width: int = width
+				elif 1920 <= width < 2560:
+					new_width: int = 1920
+				elif 2560 <= width < 3840:
+					new_width: int = 2560
+				else:
+					new_width: int = 3840
+
+				new_height: int = int(new_width * aspect_ratio)
+				resize_image: Image = image_file.resize(
+					size = (new_width, new_height),
+				)
+
+				resize_image.save(
 					fp = f"./Development/After_Edit_Picture/{datetime.strftime(photography_datetime, '%Y-%m-%d %H:%M:%S')}_{maker}_{model_name}_{shortuuid.uuid()}.png",
 					format = 'PNG',
 					compress_level = 0
